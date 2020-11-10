@@ -1,5 +1,8 @@
 # ember-select-light Changelog
 
+### v2.0.2 (November 9, 2020)
+- [#27](https://github.com/ember-a11y/ember-select-light/pull/27) [DOCS] Corrected code examples in README, added a tailwind styled example
+
 ### v2.0.1 (October 29, 2020)
 Previous two Ember LTS guarenteed to work thanks to ember-try (3.16, 3.20)
 - [#17](https://github.com/ember-a11y/ember-select-light/pull/17) [DEVOPS] ember-try added to ensure LTS / future versions work
