@@ -47,8 +47,8 @@ ember install ember-select-light
 
 ```handlebars
 <SelectLight>
-	<option value="clown">Clown Fish</option>
-	<option value="cat">Cat Fish</option>
+  <option value="clown">Clown Fish</option>
+  <option value="cat">Cat Fish</option>
 </SelectLight>
 ```
 
