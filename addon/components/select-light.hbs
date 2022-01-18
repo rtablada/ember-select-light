@@ -8,7 +8,14 @@
   {{/if}}
 
   {{#if hasBlock}}
-    {{yield}}
+    {{yield (hash
+      option=(
+        component "select-light/option"
+        valueKey=this.valueKey
+        displayKey=this.displayKey
+        selectedValue=@value
+      )
+    )}}
   {{else}}
     {{#each @options as | optionValue |}}
       <SelectLight::Option

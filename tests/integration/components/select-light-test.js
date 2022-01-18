@@ -71,6 +71,17 @@ module('Integration | Component | select-light', function(hooks) {
 		assert.dom('select option').hasValue('plat');
 	});
 
+  test('should be able to yield to passed options with option component', async function(assert) {
+		await render(hbs`
+		<SelectLight as |sl|>
+			<sl.option value="plat">Platypus</sl.option>
+		</SelectLight>
+	`);
+
+		assert.dom('select option').includesText('Platypus');
+		assert.dom('select option').hasValue('plat');
+	});
+
 	test('should render options from passed flat array', async function(assert) {
 		let options = ['squid', 'octopus'];
 		this.setProperties({options});
@@ -199,12 +210,28 @@ module('Integration | Component | select-light', function(hooks) {
 		assert.equal(this.myValue, 'turtle');
 	});
 
-	test('should fire onChange when user chooses option, mut with yield', async function(assert) {
+	test('should fire onChange when user chooses option, mut with yield and native option', async function(assert) {
 		this.set('myValue', null);
 
 		await render(hbs`
       <SelectLight @onChange={{action (mut myValue)}}>
         <option value="turtle">Turtle</option>
+      </SelectLight>
+    `);
+
+		await fillIn('select', 'turtle');
+		await triggerEvent('select', 'change');
+
+		assert.dom('select').hasValue('turtle');
+		assert.equal(this.myValue, 'turtle');
+	});
+
+	test('should fire onChange when user chooses option, mut with yielded option component', async function(assert) {
+		this.set('myValue', null);
+
+		await render(hbs`
+      <SelectLight @onChange={{action (mut myValue)}} as |sl|>
+        <sl.option value="turtle">Turtle</sl.option>
       </SelectLight>
     `);
 
