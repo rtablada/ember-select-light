@@ -285,4 +285,72 @@ module('Integration | Component | select-light', function(hooks) {
 
     assert.verifySteps(['handled action']);
 	});
+
+  test('should allow objects to be selected onChange', async function(assert) {
+    const shortfin = { value: 'shortfin', label: 'Shortfin Shark' };
+    const mako = { value: 'mako', label: 'Mako Shark' };
+
+		let options = [
+      shortfin,
+      mako,
+		];
+
+		this.setProperties({
+			options,
+			value: mako,
+			customAction: (value) => {
+        assert.step('handled action');
+        console.log(value)
+				assert.equal(value, options[0]);
+			},
+		});
+
+		await render(hbs`
+      <SelectLight
+        @options={{this.options}}
+        @value={{this.value}}
+        @onChange={{action this.customAction}} />
+    `);
+
+		await fillIn('select', shortfin.value);
+
+    assert.verifySteps(['handled action']);
+	});
+
+  test('should allow objects to be selected onChange with yielded components', async function(assert) {
+    const shortfin = { value: 'shortfin', label: 'Shortfin Shark' };
+    const mako = { value: 'mako', label: 'Mako Shark' };
+
+		let options = [
+      shortfin,
+      mako,
+		];
+
+		this.setProperties({
+			options,
+			value: mako,
+			customAction: (value) => {
+        assert.step('handled action');
+        console.log(value)
+				assert.equal(value, options[0]);
+			},
+		});
+
+		await render(hbs`
+      <SelectLight
+        @value={{this.value}}
+        @onChange={{action this.customAction}} as |sl|>
+        <option value="">Choose</option>
+        {{#each this.options as |option|}}
+          <sl.option @value={{option}}>{{option.label}}</sl.option>
+        {{/each}}
+      </SelectLight>
+    `);
+
+		assert.dom('select').hasValue(mako.value);
+
+		await fillIn('select', shortfin.value);
+
+    assert.verifySteps(['handled action']);
+	});
 });

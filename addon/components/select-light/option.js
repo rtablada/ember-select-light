@@ -7,6 +7,22 @@ export default class SelectLightOption extends Component {
 
     this.valueKey = this.args.valueKey ?? 'value';
     this.displayKey = this.args.displayKey ?? 'label';
+
+    if (this.args.parent) {
+      this.args.parent.registerChild(this);
+    }
+  }
+
+  willDestroy() {
+    super.willDestroy(...arguments);
+
+    if (this.args.parent) {
+      this.args.parent.unregisterChild(this);
+    }
+  }
+
+  get objValue() {
+    return this.args.value;
   }
 
   get value() {

@@ -11,6 +11,7 @@
     {{yield (hash
       option=(
         component "select-light/option"
+        parent=this
         valueKey=this.valueKey
         displayKey=this.displayKey
         selectedValue=@value
@@ -19,6 +20,7 @@
   {{else}}
     {{#each @options as | optionValue |}}
       <SelectLight::Option
+        @parent={{this}}
         @valueKey={{this.valueKey}}
         @displayKey={{this.displayKey}}
         @value={{optionValue}}
