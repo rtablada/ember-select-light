@@ -35,7 +35,7 @@ export default class extends Component {
 
   getValue(valueStr) {
     return Array.from(this.childComponents).reduce((selectedValue, childComponent) => {
-      return childComponent.value === valueStr ? childComponent.objValue : selectedValue
+      return childComponent.value == valueStr ? childComponent.objValue : selectedValue
     }, valueStr);
   }
 

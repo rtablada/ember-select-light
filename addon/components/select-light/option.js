@@ -26,6 +26,10 @@ export default class SelectLightOption extends Component {
   }
 
   get value() {
+    if (typeof this.args.value === 'string' || !this.args.value) {
+      return this.args.value;
+    }
+
     return this.args.value?.[this.valueKey] ?? this.args.value;
   }
 
@@ -34,6 +38,6 @@ export default class SelectLightOption extends Component {
   }
 
   get selected() {
-    return this.args.selectedValue === this.args.value || this.args.selectedValue === this.value;
+    return this.args.selectedValue == this.args.value || this.args.selectedValue === this.value;
   }
 }
