@@ -38,6 +38,6 @@ export default class SelectLightOption extends Component {
   }
 
   get selected() {
-    return this.args.selectedValue == this.args.value || this.args.selectedValue === this.value;
+    return this.args.selectedValue == this.args.value || this.args.selectedValue == this.value;
   }
 }
